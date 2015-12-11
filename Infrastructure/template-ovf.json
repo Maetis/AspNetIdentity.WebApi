@@ -2,7 +2,7 @@
   "builders": [
     {
       "type": "virtualbox-ovf",
-      "source_path": "{{user 'ovf_file'}}",
+      "source_path": "{{user `ovf_file`}}",
       "communicator": "winrm",
       "winrm_username": "{{user 'username'}}",
       "winrm_password": "{{user 'password'}}",
