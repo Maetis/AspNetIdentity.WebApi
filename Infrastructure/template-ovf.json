@@ -12,7 +12,8 @@
       "winrm_timeout": "5h",
       "guest_additions_mode": "disable",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "shutdown_timeout": "15m"
+      "shutdown_timeout": "15m",
+	  "output_directory": "{{user `output_dir`}}"
     }
   ],
   "provisioners": [
