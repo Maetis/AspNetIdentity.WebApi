@@ -14,5 +14,12 @@
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "shutdown_timeout": "15m"
     }
+  ],
+  "provisioners": [
+	{
+		"type": "file",
+		"source": "{{user `files_to_upload`}}",
+		"destination": "tmp"
+	}
   ]
 }
