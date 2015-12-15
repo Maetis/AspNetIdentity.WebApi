@@ -18,6 +18,12 @@
   ],
   "provisioners": [
 	{
+      "type": "powershell",
+      "scripts": [
+        "{{user `path_to_scripts`}}\install-IIS80Express.ps1"
+      ]
+    },
+	{
 		"type": "file",
 		"source": "{{user `files_to_upload`}}",
 		"destination": "tmp"
