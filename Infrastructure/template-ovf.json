@@ -20,8 +20,8 @@
 	{
       "type": "powershell",
       "scripts": [
-		"{{user `path_to_scripts`}}/install-Framework.Net_40.ps1",
-        "{{user `path_to_scripts`}}/install-IIS80Express.ps1"
+		"{{user `path_to_scripts`}}/install-Framework.Net_45.ps1",
+        "{{user `path_to_scripts`}}/install-IIS100Express.ps1"
       ]
     },
 	{
