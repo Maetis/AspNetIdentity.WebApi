@@ -3,6 +3,9 @@
     {
       "type": "virtualbox-ovf",
       "source_path": "{{user `ovf_file`}}",
+	  "vboxmanage": [
+		[ "modifyvm", "{{.Name}}", "--memory", "1024" ]
+		],
       "communicator": "winrm",
       "winrm_username": "{{user `username`}}",
       "winrm_password": "{{user `password`}}",
@@ -28,6 +31,12 @@
 		"type": "file",
 		"source": "{{user `files_to_upload`}}",
 		"destination": "tmp"
-	}
+	},
+	{
+      "type": "powershell",
+      "scripts": [
+		"{{user `path_to_scripts`}}/deploy-app.ps1"
+      ]
+    }
   ]
 }
