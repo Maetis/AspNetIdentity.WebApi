@@ -1,6 +1,6 @@
 $strAppConfigFile = "$env:USERPROFILE\Documents\IISExpress\config\applicationhost.config"
 
-If (-Not Test-Path $strAppConfigFile) {
+If (-Not(Test-Path $strAppConfigFile)) {
 	Start-Process "$env:ProgramFiles\IIS Express\iisexpress.exe" -workingdirectory "$env:ProgramFiles\IIS Express" -WindowStyle Hidden -ErrorAction SilentlyContinue
 }
 
