@@ -3,8 +3,11 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace AspNetIdentity.WebApi.Infrastructure
@@ -51,6 +54,64 @@ namespace AspNetIdentity.WebApi.Infrastructure
             }
            
             return appUserManager;
+        }
+
+        public override async Task<ApplicationUser> FindAsync(string userName, string password)
+        {
+            return await Task.Run(() => new ApplicationUser
+                {
+                    UserName = userName,
+                    Id = userName,
+                    EmailConfirmed = true
+                });
+        }
+
+        public override async Task<ClaimsIdentity> CreateIdentityAsync(ApplicationUser user, string authenticationType)
+        {
+            IList<Claim> claimCollection = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Country, "Canada"),
+                new Claim(ClaimTypes.Email, user.UserName),
+                new Claim(ClaimTypes.Role, "Admin")
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claimCollection, "Test");
+
+            return await Task.Run(() => claimsIdentity); 
+        }
+
+        public override IQueryable<ApplicationUser> Users
+        {
+            get
+            {
+                IList<ApplicationUser> userCollection = new List<ApplicationUser>
+                {
+                    new ApplicationUser{UserName = "Bob", Id = "Bob", EmailConfirmed = true},
+                    new ApplicationUser{UserName = "Dick", Id = "Dick", EmailConfirmed = true},
+                    new ApplicationUser{UserName = "Brenda", Id = "Brenda", EmailConfirmed = true}
+                };
+
+                return userCollection.AsQueryable<ApplicationUser>();
+            }
+        }
+
+        public override async Task<IList<string>> GetRolesAsync(string userId)
+        {
+            IList<string> roles = new List<string> {"User"};
+
+            //return await Task.Run(() => roles);
+
+            return roles;
+        }
+
+        public override async Task<IList<Claim>> GetClaimsAsync(string userId)
+        {
+            IList<Claim> claims = new List<Claim> {new Claim(ClaimTypes.Role, "User") };
+
+            //return await Task.Run(() => claims);
+
+            return claims;
         }
     }
 }
